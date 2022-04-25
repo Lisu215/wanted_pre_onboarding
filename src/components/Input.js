@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import {AiFillCheckCircle,AiFillEye,AiFillEyeInvisible} from 'react-icons/ai';
 
@@ -7,26 +7,25 @@ const Input = () => {
     const [isEmailValid, setEmailValid] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [isPasswordHidden, setPasswordHidden] = useState(true);
-
-    const emailChange = (e) => {
-        setEmail(e.target.value);
-        const emailRegex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-        emailRegex.test(email) ? setEmailValid(true) : setEmailValid(false);
-    }
+    const emailRegex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
     const checkEmail = (e) => {
-        const emailRegex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
         emailRegex.test(email) ? setErrorMessage("") : setErrorMessage("이메일 형식이 올바르지 않습니다.");
         if(email.length === 0) {
         setErrorMessage("이메일을 입력해주세요.")
         };
     }
-
+    
+    useEffect(() => {
+        emailRegex.test(email) ? setEmailValid(true) : setEmailValid(false);
+      }, [email]);
+    
     return (
         <InputContainer>
             <InputItem>
                 <label>E-mail</label>
-                <input type="email" placeholder="E-mail" value={email} onChange={emailChange} onBlur={checkEmail}></input>
+                <input type="email" placeholder="E-mail" value={email} 
+                onChange={(e) => {setEmail(e.target.value)}} onBlur={checkEmail}></input>
                 <i><AiFillCheckCircle size="20" color={ email.length === 0 ? "#D4D4D4" : (isEmailValid  ? "#22AFAF" : "#D4D4D4")}/></i>
                 <ErrorCode>{errorMessage}</ErrorCode>
             </InputItem>

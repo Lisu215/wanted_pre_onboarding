@@ -36,9 +36,7 @@ const Dropdown = () => {
                     <label>{symbol}</label>
                     <i><AiFillCaretDown/></i>
                 </DropdownBox>
-
                 {isDropdownOpen && (
-
                   <SymbolMenu>
                     <SearchBox>
                         <SearchIcon><AiOutlineSearch/></SearchIcon>

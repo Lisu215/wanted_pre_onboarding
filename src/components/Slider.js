@@ -8,13 +8,10 @@ const Slider = () => {
     
     return (
         <SliderContainer>
-            
             <PercentBox>
                 <PercentNum>{isPercent}</PercentNum>%
             </PercentBox>
-
             <SliderBar type="range" min="0" max="100" value={isPercent} onChange={changePercent}/>
-     
             <ButtonBox>
                 {items.map((item, index) => {
                       return (
@@ -22,7 +19,6 @@ const Slider = () => {
                     )
                 })}
             </ButtonBox>   
-
         </SliderContainer>
     );
 };
